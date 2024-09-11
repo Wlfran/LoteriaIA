@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pago - Lotería</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .pago-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button.boton-pagar {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button.boton-pagar:hover {
+            background-color: #218838;
+        }
+        #mensaje-confirmacion {
+            margin-top: 15px;
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pago-container">
+        <h2>Pagar Lotería</h2>
+        <div class="form-group">
+            <label for="numeros-loteria">Números de la Lotería</label>
+            <input type="text" id="numeros-loteria" maxlength="4" pattern="\d{4}" placeholder="Ingrese 4 números" required>
+        </div>
+        <div class="form-group">
+            <label for="monto">Monto a Pagar</label>
+            <input type="number" id="monto" placeholder="Ingrese el monto" min="1" required>
+        </div>
+        <button class="boton-pagar" onclick="procesarPago()">Pagar</button>
+        <div id="mensaje-confirmacion"></div>
+    </div>
+
+    <!-- Formulario oculto para PayU -->
+    <form id="formulario-payu" method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/" style="display:none;">
+        <input name="merchantId" type="hidden" value="508029">
+        <input name="accountId" type="hidden" value="512321">
+        <input name="description" type="hidden" value="Pago de Lotería">
+        <input name="referenceCode" id="payu-referenceCode" type="hidden" value="">
+        <input name="amount" id="payu-amount" type="hidden" value="">
+        <input name="tax" type="hidden" value="3193">
+        <input name="taxReturnBase" type="hidden" value="16806">
+        <input name="currency" type="hidden" value="COP">
+        <input name="signature" id="payu-signature" type="hidden" value="">
+        <input name="test" type="hidden" value="0">
+        <input name="buyerEmail" type="hidden" value="test@test.com">
+        <input name="responseUrl" type="hidden" value="https://4baf-186-179-103-59.ngrok-free.app/paginaRespuesta.php">
+        <input name="confirmationUrl" type="hidden" value="https://4baf-186-179-103-59.ngrok-free.app/paginaRespuesta.php">
+        <input name="Submit" type="submit">
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        function md5Hex(string) {
+            return CryptoJS.MD5(string).toString(CryptoJS.enc.Hex).toLowerCase();
+        }
+
+        function generarReferenceCode() {
+            let ultimoNumero = localStorage.getItem('ultimoReferenceCode') || 0;
+            ultimoNumero = parseInt(ultimoNumero, 10);
+            let nuevoNumero = ultimoNumero + 1;
+            if (nuevoNumero > 10000) {
+                nuevoNumero = 0;
+            }
+            localStorage.setItem('ultimoReferenceCode', nuevoNumero);
+            return nuevoNumero;
+        }
+
+        function procesarPago() {
+            const numerosLoteria = document.getElementById('numeros-loteria').value;
+            const monto = document.getElementById('monto').value;
+            const mensajeConfirmacion = document.getElementById('mensaje-confirmacion');
+
+            if (numerosLoteria.length !== 4 || monto === '' || monto <= 0) {
+                mensajeConfirmacion.textContent = 'Por favor, ingresa un número de lotería de 4 dígitos y un monto válido.';
+                return;
+            }
+
+            document.getElementById('payu-amount').value = monto;
+            const nuevoReferenceCode = generarReferenceCode();
+            const referenceCode = "Ref" + nuevoReferenceCode;
+            document.getElementById('payu-referenceCode').value = referenceCode;
+
+            const apiKey = '4Vj8eK4rloUd272L48hsrarnUA';
+            const merchantId = '508029';
+            const currency = 'COP';
+            const firmaString = `${apiKey}~${merchantId}~${referenceCode}~${monto}~${currency}`;
+            const firma = md5Hex(firmaString);
+            document.getElementById('payu-signature').value = firma;
+
+            console.log('Firma generada:', firma); 
+            console.log('Reference Code:', referenceCode);
+            console.log('Monto:', monto);
+
+            mensajeConfirmacion.textContent = 'Procesando el pago...';
+
+            setTimeout(function() {
+                document.getElementById('formulario-payu').submit();
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>

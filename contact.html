@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="sp">
+
+<head>
+    <title>Contactos | Empieza a generar números ganadores de las loterías con IA </title>
+    <!-- /SEO Ultimate -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/images/favicon/apple-icon-57x57.webp">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/images/favicon/apple-icon-60x60.webp">
+    <link rel="apple-touch-icon" sizes="72x72" href="./assets/images/favicon/apple-icon-72x72.webp">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/images/favicon/apple-icon-76x76.webp">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/images/favicon/apple-icon-114x114.webp">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/images/favicon/apple-icon-120x120.webp">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/images/favicon/apple-icon-144x144.webp">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/images/favicon/apple-icon-152x152.webp">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-icon-180x180.webp">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./assets/images/favicon/android-icon-192x192.webp">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.webp">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/images/favicon/favicon-96x96.webp">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.webp">
+    <link rel="manifest" href="./assets/images/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.webp">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Latest compiled and minified CSS -->
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/js/bootstrap.min.js">
+    <!-- Font Awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- StyleSheet link CSS -->
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/mediaqueries.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/owl.carousel.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/owl.theme.default.min.css" rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+</head>
+
+<body>
+<div class="sub-banner-section-outer contact-banner-section-outer position-relative">
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="./index.html" title="Inicio"><figure class="mb-0"><img src="./assets/images/numeroya.webp" alt="Logo numeroya" class="img-fluid"></figure></a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html" title="Inicio">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./about.html" title="Nosotros">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./services.html" title="Servicios">Servicios</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./contact.html" title="Contactos">Contactos</a>
+                        </li>
+                        <li class="nav-item dropdown" id="usuarioR">
+                            <a class="nav-link talk_btn" href="./usuario.html" id="navbarDropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false" title="Iniciar Sesión">Iniciar Sesión <i class="fa-solid fa-angle-right"></i></a>
+                        </li> 
+                        <li class="nav-item dropdown" style="display: none;" id="generarN">
+                            <a class="nav-link talk_btn" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" title="Generar Números" >Generar Números <i class="fa-solid fa-angle-right"></i></a>
+                            <div class="dropdown-menu drop-down-content">
+                                <ul class="list-unstyled drop-down-pages">
+                                    <!-- <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="./faqs.html">Elija su pais </a>
+                                    </li> -->
+                                    <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="colombia.html">Colombia</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="./projects.html">Hondura </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="./projects.html">Republica Dominicana</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="#" onclick="cerrarSesion()">Cerrar Sesión</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>                            
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- SUB-BANNER SECTION -->
+    <section class="banner-section position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="banner-section-content">
+                        <h1 class="text-white" data-aos="fade-up">Contactos</h1>
+                        <p class="text-white" data-aos="fade-right">Empieza a generar números ganadores de las loterías con IA.</p>
+                        <div class="btn_wrapper" data-aos="fade-up" id="btnUsuarioContenido">
+                            <a class="text-decoration-none default-btn btn-size-18 hover-effect readmore_btn" href="./usuario.html" title="Iniciar Sesión">Iniciar Sesión<i class="fa-solid fa-angle-right"></i></a>
+                            <a class="text-decoration-none default-btn-two btn-size-18 hover-effect" href="./usuario.html" title="Registrase">Registrase<i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                        <div class="btn_wrapper" data-aos="fade-up" id="generarNuContenido" style="display: none;">
+                            <span> Inicio </span><i class="fa-solid fa-angles-right" aria-hidden="true"></i><span class="sub_span">Contactos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="banner_image position-relative">
+                        <figure class="banner_main_image mb-0 left_right_shape">
+                            <img src="./assets/images/contact_banner_image.webp" alt="contact banner image">
+                        </figure>
+                        <figure class="banner_image_bottom_shape mb-0 position-absolute top_bottom_shape">
+                            <img src="./assets/images/sub_banner_image_bottom_shape.webp" alt="sub banner image bottom shape" class="img-fluid">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <figure class="banner_top_shape mb-0 position-absolute top_bottom_shape">
+        <img src="./assets/images/sub_banner_top_shape.webp" alt="sub banner top shape" class="img-fluid">
+    </figure>
+    <figure class="banner_background_shape mb-0 position-absolute left_right_shape">
+        <img src="./assets/images/sub_banner_background_shape.webp" alt="sub banner background shape">
+    </figure>
+</div>
+<!-- CONTACT INFO SECTION -->
+<section class="contact_info_section position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="contact_info_content">
+                            <h6>Nuestra información</h6>
+                            <h2>Información de Contacto</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" data-aos="fade-up">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="contact_info_box hover-effect">
+                            <figure class="mb-0">
+                                <img src="./assets/images/location.webp" alt="location" class="img-fluid hover-effect">
+                            </figure>
+                            <div class="contact_info_box_content_wrapper">
+                                <h5>Ubicación:</h5>
+                                <p class="mb-0">121 King Street, Melbourne Victoria 3000 Australia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="contact_info_box hover-effect">
+                            <figure class="mb-0">
+                                <img src="./assets/images/email.webp" alt="email" class="img-fluid hover-effect">
+                            </figure>
+                            <div class="contact_info_box_content_wrapper">
+                                <h5>Email :</h5>
+                                <p class="mb-0"><a href="mailto:support@immersiveai.com" class="text-decoration-none">support@numeroya.com</a></p>
+                                <p class="mb-0"><a href="mailto:immersiveai@gmail.com" class="text-decoration-none">info@numeroya.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" data-aos="fade-right">
+                <div class="contact_info_form_content">
+                    <h4>Envíanos un mensaje</h4>
+                    <form id="contactpage" method="POST" action="./contact-form.php">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group mb-0">
+                                <input type="text" name="fullname" id="name" class="form-control" placeholder="Nombre:">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group mb-0">    
+                                <input type="tel" name="phone" id="phonenum" class="form-control" placeholder="Teléfono :"> 
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group mb-0">    
+                                <input type="email" name="emailaddress" id="emailaddrs" class="form-control" placeholder="Email:"> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class=" form-group mb-0">    
+                                <textarea rows="3" name="msg" id="comment" class="form-control" placeholder="Mensaje:"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn_wrapper">
+                            <button type="submit" name="get_started" id="started" class="default-btn">Enviar Mensaje<i class="fa-solid fa-angle-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <figure class="contact_info_left_shape mb-0 position-absolute top_bottom_shape">
+            <img src="./assets/images/contact_info_left_shape.webp" alt="contact info left shape" class="img-fluid">
+        </figure>
+    </div>
+</section>
+<!-- CONTACT MAP SECTION -->
+<div class="contact_map_section">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35661.6942074034!2d144.91637077397664!3d-37.811636671563036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2s!4v1659530976839!5m2!1sen!2s" width="1920" height="560" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+<!-- COMBO SECTION -->
+<section class="combo_section contact_combo_section">
+    <!-- CLIENT LOGO'S SECTION -->
+    <div class="client_logos_section contact_client_logos_section">
+        <div class="container">
+            <div class="row" data-aos="fade-up">
+                <div class="col-lg-1 col-md-1 col-sm-6 col-12 d-md-block d-none"></div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-6">
+                    <figure class="logo_image1 mb-0">
+                        <img src="./assets/images/client_logo_image1.webp" alt="client logo image1" class="img-fluid hover-effect">
+                    </figure>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-6">
+                    <figure class="logo_image2 mb-0">
+                        <img src="./assets/images/client_logo_image2.webp" alt="client logo image2" class="img-fluid hover-effect">
+                    </figure>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-6">
+                    <figure class="logo_image3 mb-0">
+                        <img src="./assets/images/client_logo_image3.webp" alt="client logo image3" class="img-fluid hover-effect">
+                    </figure>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-6">
+                    <figure class="logo_image4 mb-0">
+                        <img src="./assets/images/client_logo_image4.webp" alt="client logo image4" class="img-fluid hover-effect">
+                    </figure>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-6">
+                    <figure class="logo_image5 mb-0">
+                        <img src="./assets/images/client_logo_image5.webp" alt="client logo image5" class="img-fluid hover-effect">
+                    </figure>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-6 col-12 d-md-block d-none"></div>
+            </div>
+        </div>
+    </div>
+    <!-- GET STARTED SECTION -->
+    <div class="get_started_section">
+        <div class="container">
+            <div class="get_started_box">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-12 order-md-1 order-2">
+                        <div class="get_started_box_image">
+                            <figure class="mb-0 left_right_shape">
+                                <img src="./assets/images/get_started_image.webp" alt="get started image" class="img-fluid">
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 col-12 order-md-2 order-1">
+                        <div class="get_started_box_content" data-aos="fade-right">
+                            <h6>Comenzar</h6>
+                            <h2>Genere los números de las loterías</h2>
+                            <div class="btn_wrapper">
+                                <a class="text-decoration-none default-btn-two btn-size-18 hover-effect" href="./contact.html" title="Iniciar Sesión">Iniciar Sesión<i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <figure class="get_started_shape mb-0 left_right_shape">
+                <img src="./assets/images/get_started_shape.webp" alt="get started shape" class="img-fluid">
+            </figure>
+        </div>
+    </div>
+</section>
+<!-- FOOTER SECTION -->
+<section class="footer-section" id="footer_section">
+    <div class="container">
+        <div class="middle-portion">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="about_col">
+                        <a href="./index.html">
+                            <figure>
+                                <img src="./assets/images/numeroya.webp" alt="logo numeroya" class="img-fluid">
+                            </figure>
+                        </a>
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <p class="text-size-16">Únete a la revolución de la lotería con inteligencia artificial y empieza a jugar inteligentemente hoy mismo.</p>
+                            </li>
+                            <li class="icons hover-effect"><a href="https://www.facebook.com/numeroyaia" title="facebook" target="_blank" rel="noreferrer noopener" ><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+                            <li class="icons hover-effect"><a href="https://www.instagram.com/numeroyaia" title="instagram" target="_blank" rel="noreferrer noopener"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                            <li class="icons hover-effect"><a href="https://www.youtube.com/channel/UCMHUEE6SdwOgPMGypPFxy4g" title="youtube" target="_blank" rel="noreferrer noopener"><i class="fa-brands fa-youtuve-0" aria-hidden="true"></i></a></li>
+                            <li class="icons hover-effect"><a href="https://www.tiktok.com/@numeroyaia?lang=es" title="tiktok" target="_blank" rel="noreferrer noopener"><i class="fa-brands tiktok" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-3 col-xs-12 d-md-block d-none">
+                    <div class="links_col">
+                        <h4>Menu</h4>
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <span></span>
+                                <a href="./index.html">Inicio</a>
+                            </li>
+                            <li>
+                                <span></span>
+                                <a href="./about.html">Nosotros</a>
+                            </li>
+                            <li>
+                                <span></span>
+                                <a href="./services.html">Servicios</a>
+                            </li>
+                        
+                            <li>
+                                <span></span>
+                                <a href="./contact.html">Contactos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-sm-block d-none">
+                    <div class="contact_col">
+                        <h4>Contactos</h4>
+                        <ul class="list-unstyled mb-0">
+                        
+                            <li class="contact_mail">
+                                <i class="fa-sharp fa-solid fa-envelope"></i>
+                                <a href="mailto:Info@immersiveai.com" class="text-decoration-none">Info@numeroya.com</a>
+                            </li>
+                            <li class="mb-0">
+                                <i class="fa-solid fa-location-dot location"></i>
+                                <span class="text-size-16">21 King Street Melbourne, 3000, Australia</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12 text-sm-left text-center d-lg-block d-none">
+                    <div class="footer-info-content">
+                        <h4>Preguntas</h4>
+                        <input type="email" name="email" id="emailadd" class="form-control" placeholder="Enter Email:">
+                        <div class="input-group-append form-button">
+                            <button class="btn" name="btnsubmit" id="submitbtn" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <input type="checkbox" id="check" name="check">
+                                <span>Autoriza el tratamiento de datos, sus datos serán protegidos como lo establece la ley.</span>
+                            </li>
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="footer_right_shape top_bottom_shape">
+            <figure class="mb-0"><img src="./assets/images/footer_right_shape.webp" alt="footer right shape" class="img-fluid"></figure>
+        </div>
+        <div class="footer_background_shape left_right_shape">
+            <figure class="mb-0"><img src="./assets/images/footer_background_shape.webp" alt="footer background shape"></figure>
+        </div>
+    </div>
+    <div class="bottom-portion">
+        <div class="copyright col-xl-12"> 
+            <p>Copyright © 2023 Numeroya Todos los derechos reservados. <a href="politicas.html" title="Politicas de Privacida" target="_blank" rel="noreferrer noopener">Politicas de Privacida</a></p>
+        </div>
+    </div>
+</section>
+<!-- Latest compiled JavaScript -->
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/video-popup.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/js/owl.carousel.js"></script>
+<script src="assets/js/carousel.js"></script>
+<script src="assets/js/video-section.js"></script>
+<script src="assets/js/counter.js"></script>
+<script src="assets/js/animation.js"></script>
+<script src="assets/js/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

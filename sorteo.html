@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="estilos.css"> -->
+    <title>Números de Lotería</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+.loteria-container {
+    display: flex;
+    align-items: center;
+    background-color: #6c4a7d;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.numero-loteria {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+.serie-loteria {
+    margin-left: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+    </style>
+</head>
+<body>
+    <div class="loteria-container" id="loteriaContainer">
+        <!-- Los números generados se insertarán aquí -->
+    </div>
+    <script type="module" src="assets/js/sorteo.js" defer></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página de Inicio de Sesión</title>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Incluir Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/materialdesignicons.css">
+    <link rel="stylesheet" href="assets/css/styleA.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+        }
+
+        .contenidoUsuario {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            position: relative;
+        }
+
+        .left-side {
+            flex: 2;
+            background: url('assets/images/footer_background_shape.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .right-side {
+            flex: 1.5;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #111;
+            color: #fff;
+            padding: 20px 50px;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-back {
+            font-size: 24px;
+            color: #fff;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .btn-back i {
+            margin-right: 10px;
+        }
+
+        .btn-back:hover {
+            color: #007bff;
+        }
+
+        .login-register-form {
+            width: 100%;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #111;
+            border-radius: 8px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            padding: 0.75rem 1rem;
+        }
+
+        .form-control::placeholder {
+            color: #bbb;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 0.75rem 1rem;
+            width: auto;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .form-text {
+            color: #bbb;
+            text-align: left;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 1rem;
+        }
+
+        .social-login a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.25rem;
+            margin-right: 15px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .tabs a {
+            color: #bbb;
+            text-decoration: none;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid transparent;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .tabs a.active {
+            color: #fff;
+            border-bottom-color: #007bff;
+        }
+
+        /* Menú desplegable */
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 12px;
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .btn-dropdown {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .form-control {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+        }
+
+        /* Estilo para el menú desplegable */
+        #dropdownMenu {
+            display: none;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.692); /* Fondo blanco con 90% de opacidad */
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            z-index: 1000; /* Asegura que esté encima de otros elementos */
+            width: 250px;
+        }
+
+        #dropdownMenu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 8px 16px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Estilo para el modal */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 1000; /* Se coloca encima de otros elementos */
+        }
+
+        #modal {
+            height: 500px;
+            width: 1000px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1001; /* Se coloca encima del overlay */
+        }
+        #closeModalUsuario {
+            position: absolute; /* Posiciona el ícono de cerrar */
+            top: 20px; /* Ajusta la distancia desde la parte superior */
+            right: 20px; /* Ajusta la distancia desde el lado derecho */
+            font-size: 24px; /* Tamaño del ícono */
+            color: white; /* Color del ícono */
+            cursor: pointer; /* Muestra un cursor de puntero al pasar sobre el ícono */
+            z-index: 10000; /* Asegura que el ícono esté encima de otros elementos */
+        }
+
+        #overlayRecuperar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 1000;
+        }
+        #modalRecuperar {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1001;
+        }
+        #modalRecuperar input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #modalRecuperar button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #modalRecuperar .btn-enviar {
+            background-color: #007bff;
+            color: white;
+        }
+        #modalRecuperar .btn-cancelar {
+            background-color: #f44336;
+            color: white;
+            margin-left: 10px;
+        }
+        @media (max-width: 768px) {
+            .left-side {
+                display: none;
+            }
+
+            .right-side {
+                padding: 10px;
+                width: 100vw;
+            }
+
+            .login-register-form {
+                max-height: 60vh;
+                padding: 15px;
+            }
+
+            .tabs {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .tabs a {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .social-login a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenidoUsuario">
+    <div class="left-side"></div>
+    <div class="right-side">
+        <button class="btn-back" id="btn-inicio">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div id="overlay"></div>
+        <div id="modal" style="display: none; background-color: transparent;">
+            <i class="fas fa-xmark" id="closeModalUsuario"></i>
+            <div class="bg-overlay"></div>
+            <div class="container align-items-center px-5 h-screen z-1 relative">
+                <div class="shadow bg-indigo-950 d-flex flex-column form-layout">
+                    <div class="d-flex justify-content-center mb-4">
+                        <a class='d-flex align-items-center gap-x-1' href='/'>
+                            <h1 class="text-uppercase text-white font-bold text-2xl mb-0">Authlab</h1>
+                        </a>
+                    </div>
+                    <div class="d-flex flex-column flex-1 justify-content-center">
+                        <div class="success-icon text-center mb-3">
+                            <i class="mdi mdi-shield-key-outline"></i>
+                            <h2 class="text-2xl text-white">Verificar su telefono</h2>
+                            <h3 class="text-gray-200 text-sm">Ingrese los 6 dígitos enviados a su número de celular</h3>
+                        </div>
+                        <form id="verification-form">
+                            <div class="row">
+                                <div class="col-2"><input type="text" class="form-control form-control-lg text-center border-0" maxlength="1" id="digit1-input"></div>
+                                <div class="col-2"><input type="text" class="form-control form-control-lg text-center border-0" maxlength="1" id="digit2-input"></div>
+                                <div class="col-2"><input type="text" class="form-control form-control-lg text-center border-0" maxlength="1" id="digit3-input"></div>
+                                <div class="col-2"><input type="text" class="form-control form-control-lg text-center border-0" maxlength="1" id="digit4-input"></div>
+                                <div class="col-2"><input type="text" class="form-control form-control-lg text-center border-0" maxlength="1" id="digit5-input"></div>
+                                <div class="col-2"><input type="text" class="form-control form-control-lg text-center border-0" maxlength="1" id="digit6-input"></div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="button" class="btn btn-primary w-full" id="closeModal">Confirmar</button>
+                            </div>
+                        </form>
+                        <!-- <div class="d-flex align-items-center justify-content-center gap-x-4 mt-4">
+                            <div class="d-flex align-items-center gap-x-4">
+                                <p class="text-sm mb-0 text-white">Didn't receive a code?</p>
+                                <a href="#" class="text-sm no-underline text-cyan-400 hover:text-cyan-500">Resend</a>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="recaptcha-container" style="display: none;"></div>
+        <div id="recaptcha-container"></div>
+        <div class="login-register-form">
+            <div class="containerText">
+                <p><b>Get more things done with Loggin platform</b></p>
+                <p>Acces to the most powerfull tool in the entire design and web industry</p>
+            </div>
+            <div class="tabs">
+                <a href="#" id="login-tab" class="active">Login</a>
+                <a href="#" id="register-tab">Register</a>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <input id="email" type="email" class="form-control" placeholder="E-mail Address">
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" class="form-control" placeholder="Password">
+                </div>
+                <button class="btn btn-primary">Login</button>
+                <div class="form-text">
+                    <a class="btn btn-link" id="btn-recuperar" href="#">Recuperar Contraseña</a>
+                </div>
+            </form>
+        
+            <form id="register-form" style="display: none;">
+                <div class="form-group">
+                    <input id="nombres" type="text" class="form-control" placeholder="Nombres">
+                </div>
+                <div class="form-group">
+                    <input id="apellidos" type="text" class="form-control" placeholder="Apellidos">
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <button id="dropdownButton" class="btn-dropdown">Select Country Code</button>
+                        <div id="dropdownMenu" class="dropdown-menu">
+                            <a href="#" class="dropdown-item" data-prefix="+57">Colombia (+57)</a>
+                            <a href="#" class="dropdown-item" data-prefix="+504">Honduras (+504)</a>
+                            <a href="#" class="dropdown-item" data-prefix="+1">República Dominicana (+1)</a>
+                        </div>
+                        <input id="celular" type="tel" class="form-control" placeholder="Celular">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input id="correo" type="email" class="form-control" placeholder="Correo">
+                </div>
+                <div class="form-group">
+                    <input id="contraseña" type="password" class="form-control" placeholder="Contraseña">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="aceptarPoliticas">
+                    <label class="form-check-label" for="aceptarPoliticas">
+                        Aceptar <a href="politicas.html" target="_blank">políticas</a>
+                    </label>
+                    <small id="politicasError" style="color: red; display: none;">Debes aceptar las políticas para continuar.</small>
+                </div>
+                <button class="btn btn-primary" id="openModal">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal para recuperar contraseña -->
+<div id="overlayRecuperar"></div>
+<div id="modalRecuperar">
+    <h3>Recuperar Contraseña</h3>
+    <p>Por favor, introduce tu correo electrónico para restablecer tu contraseña.</p>
+    <input type="email" id="email-recuperar" placeholder="Correo electrónico">
+    <div class="modal-footer">
+        <button class="btn-enviar" id="enviarRecuperar">Enviar</button>
+        <button class="btn-cancelar" id="cancelarRecuperar">Cancelar</button>
+    </div>
+</div>
+
+
+<script type="module" src="assets/js/usuario.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    
+  </script>
+  
+
+
+</body>
+</html>
+
+
