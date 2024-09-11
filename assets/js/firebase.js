@@ -62,6 +62,27 @@ export const saveUsuario = ( async (uid, name, lastName, phone, email, password,
     throw error;
   }
 })
+
+//Crear una compra en Firestore asignando como id el numero de referencia
+export const saveCompra = ( async (uid, ref, descripcion, entidad, estadoTransaccion, moneda, monto, numeroJugado, numeroOrden, numeroReferencia) => {
+  try {
+    await setDoc(doc(db, "users/" + uid + '/compras/', ref), {
+      descripcion,
+      entidad,
+      estadoTransaccion,
+      moneda,
+      monto,
+      numeroJugado,
+      numeroOrden,
+      numeroReferencia,
+      createdAt: new Date()
+    })
+  }catch (error) {
+    console.error('Error al guardar la compra:', error);
+    throw error;
+  }
+})
+
 //obtener un usuario de firestore
 export const getUsuario = (id) => getDoc(doc(db, 'users', id))
 
@@ -70,3 +91,12 @@ export const getUsuarios = () => getDocs(collection(db, 'users'))
 
 //Actualizar un usuario de firestore
 export const updateUsuario = (id, objeto) => updateDoc(doc(db, 'users', id), objeto)
+
+//obtener todas las compras de un usuario
+export const getCompras = (id) => getDocs(collection(db, "users/" + id, "/compras"))
+
+//obtener una compra del usuario
+export const getCompra = (id, ref) => getDoc(doc(db, 'users/', id + '/compras/' + ref))
+
+//Actualizar una compra del usuario
+export const updateCompra = (id, ref, objeto) => updateDoc(doc(db, 'users/', id + '/compras/' + ref), objeto)
