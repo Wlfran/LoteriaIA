@@ -66,7 +66,7 @@ userForm.addEventListener('submit', async (e) => {
   const celular = userForm['celular'].value;
   const correo = userForm['correo'].value;
   const contraseña = userForm['contraseña'].value;
-  const compras = [];
+  // const compras = [];
   
   try {
     viewModal();
@@ -89,7 +89,7 @@ userForm.addEventListener('submit', async (e) => {
     const userId = createUser.user.uid
     successR()
     //Crear usuario en Firestore con mismo id de la bd Authentication
-    await saveUsuario(userId, nombres, apellidos, celular, correo, contraseña, compras);
+    await saveUsuario(userId, nombres, apellidos, celular, correo);
     
 
     userForm.reset();
