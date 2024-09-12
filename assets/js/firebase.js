@@ -45,7 +45,7 @@ export const signInWithPhone = (phoneNumber, appVerifier) => {
 };
 
 //Crear un usuario en Firestore asignando el mismo id de la bd Authentication
-export const saveUsuario = ( async (uid, name, lastName, phone, email, password, compras) => {
+export const saveUsuario = ( async (uid, name, lastName, phone, email) => {
   try {
     await setDoc(doc(db, "users", uid), {
       uid,
@@ -54,7 +54,7 @@ export const saveUsuario = ( async (uid, name, lastName, phone, email, password,
       phone,
       email,
       // password,
-      compras,
+      // compras,
       createdAt: new Date()
     })
   }catch (error) {
