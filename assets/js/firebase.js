@@ -100,3 +100,9 @@ export const getCompra = (id, ref) => getDoc(doc(db, 'users/', id + '/compras/' 
 
 //Actualizar una compra del usuario
 export const updateCompra = (id, ref, objeto) => updateDoc(doc(db, 'users/', id + '/compras/' + ref), objeto)
+
+//obtener la ultima referencia
+export const getUltimaReferencia = () => getDoc(doc(db, 'ultimaReferencia', 'Crk82QRxT4LzXDjKn2P9'));
+
+//Incrementar ultima referencia
+export const incrementarUltimaRef = (referencia) => updateDoc(doc(db, 'ultimaReferencia', 'Crk82QRxT4LzXDjKn2P9'), referencia)
