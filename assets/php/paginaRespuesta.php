@@ -37,7 +37,8 @@ $transactionId = $_REQUEST['transactionId'];
 if ($_REQUEST['transactionState'] == 4 ) {
 
 	$estadoTx = "Transaction approved";
-	header("Location: ../../confirmacion.html");
+	
+	header("Location: ../../confirmacion.html?referenceCode=" . urlencode($referenceCode));
 	exit;
 
 }
