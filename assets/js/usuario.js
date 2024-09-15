@@ -1,41 +1,53 @@
-import { setupRecaptcha, signInWithPhone, saveUsuario, getUsuario } from './firebase.js';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import {
+  setupRecaptcha,
+  signInWithPhone,
+  saveUsuario,
+  getUsuario
+} from './firebase.js'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail
+} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js'
 
-const auth = getAuth();
-const userForm = document.getElementById('register-form');
-const loginForm = document.getElementById('login-form');
-const forgotPassword = document.getElementById('forgotPassword');
+const auth = getAuth()
+const userForm = document.getElementById('register-form')
+const loginForm = document.getElementById('login-form')
+const forgotPassword = document.getElementById('forgotPassword')
 
-document.getElementById('closeModalUsuario').addEventListener('click', closeModal);
-document.getElementById('overlay').addEventListener('click', closeModal);
+document
+  .getElementById('closeModalUsuario')
+  .addEventListener('click', closeModal)
+document.getElementById('overlay').addEventListener('click', closeModal)
 
 // Evento de inicio de sesión
 // Evento de inicio de sesión
-loginForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const email = loginForm['email'].value;
-  const password = loginForm['password'].value;
+loginForm.addEventListener('submit', async e => {
+  e.preventDefault()
+
+  const email = loginForm['email'].value
+  const password = loginForm['password'].value
 
   try {
     // Iniciar sesion con email y contrasenia
-    const login = await signInWithEmailAndPassword(auth, email, password);
+    const login = await signInWithEmailAndPassword(auth, email, password)
 
     // Guardar el accessToken
-    const accessToken = login.user.accessToken;
-    
+    const accessToken = login.user.accessToken
+
     // Guardar Id de usuario
     const userId = login.user.uid
 
     // Obtener toda la informacion del usuario guardada en Firestore
-    const user = await getUsuario(userId);
+    const user = await getUsuario(userId)
 
     // Guardar correo y userId en sessionStorage
     sessionStorage.setItem('correo', email)
     sessionStorage.setItem(email, userId)
     success()
     // Redireccionar a la pestaña del sorteo
-    
+
     /*
     // Obtener usuarios de Firestore
     const querySnapshot = await getUsuarios();
@@ -52,36 +64,40 @@ loginForm.addEventListener('submit', async (e) => {
       }
     }); */
   } catch (e) {
-    console.error(e);
-    alert('Datos incorrectos');
+    console.error(e)
+    alert('Datos incorrectos')
   }
-});
+})
 
 // Evento de registro de usuario
-userForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+userForm.addEventListener('submit', async e => {
+  e.preventDefault()
 
-  const nombres = userForm['nombres'].value;
-  const apellidos = userForm['apellidos'].value;
-  const celular = userForm['celular'].value;
-  const correo = userForm['correo'].value;
-  const contraseña = userForm['contraseña'].value;
+  const nombres = userForm['nombres'].value
+  const apellidos = userForm['apellidos'].value
+  const celular = userForm['celular'].value
+  const correo = userForm['correo'].value
+  const contraseña = userForm['contraseña'].value
   // const compras = [];
-  
+
   try {
-    viewModal();
-    const appVerifier = setupRecaptcha('recaptcha-container');
-    
-    const confirmationResult = await signInWithPhone(celular, appVerifier);
+    viewModal()
+    const appVerifier = setupRecaptcha('recaptcha-container')
 
-    const verificationCode = await showModalAndAwaitConfirmation();
+    const confirmationResult = await signInWithPhone(celular, appVerifier)
 
-    const result = await confirmationResult.confirm(verificationCode);
-    
-    const userIdPhone = result.user;
+    const verificationCode = await showModalAndAwaitConfirmation()
+
+    const result = await confirmationResult.confirm(verificationCode)
+
+    const userIdPhone = result.user
 
     //Crear usuario en la bd Authentication con email y contrasenia
-    const createUser = await createUserWithEmailAndPassword(auth, correo, contraseña)
+    const createUser = await createUserWithEmailAndPassword(
+      auth,
+      correo,
+      contraseña
+    )
     //.then(res => alert('Usuario Creado Existosamente'))
     //.catch(er => alert('El usuario ya existe'))
 
@@ -89,189 +105,213 @@ userForm.addEventListener('submit', async (e) => {
     const userId = createUser.user.uid
     successR()
     //Crear usuario en Firestore con mismo id de la bd Authentication
-    await saveUsuario(userId, nombres, apellidos, celular, correo);
-    
+    await saveUsuario(userId, nombres, apellidos, celular, correo)
 
-    userForm.reset();
-    
+    userForm.reset()
+
     window.location.href = 'index.html'
-  
-  }catch(error) {
+  } catch (error) {
     //if para verificar si el error corresponde a que un usuario ya existe la bd Authentication
-    if (error.toString().substring(32, 57) === 'auth/email-already-in-use'){
+    if (error.toString().substring(32, 57) === 'auth/email-already-in-use') {
       alert('El usuario ya existe')
-    }else{
+    } else {
       // Los demas errores que pueden generarse durante la creacion del usuario
-      console.error('Error durante la autenticación o registro:', error);
-      alert('Hubo un error al registrar el usuario. Inténtalo de nuevo.');
+      console.error('Error durante la autenticación o registro:', error)
+      alert('Hubo un error al registrar el usuario. Inténtalo de nuevo.')
     }
   }
-});
+})
 
-function success (){
+function success () {
   Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Sesión iniciada",
+    position: 'center',
+    icon: 'success',
+    title: 'Sesión iniciada',
     showConfirmButton: false,
     timer: 1500
   }).then(() => {
     // Redirige a 'index.html' solo después de que la alerta se haya cerrado
-    location.href = 'index.html';
-});
+    location.href = 'index.html'
+  })
 }
-function successR (){
+function successR () {
   Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Registro Exitoso",
+    position: 'center',
+    icon: 'success',
+    title: 'Registro Exitoso',
     showConfirmButton: false,
     timer: 1500
   }).then(() => {
     // Redirige a 'index.html' solo después de que la alerta se haya cerrado
-    location.href = 'index.html';
-});
+    location.href = 'index.html'
+  })
 }
 
-
-function viewModal() {
-  document.getElementById('overlay').style.display = 'block';
-  document.getElementById('modal').style.display = 'block';
+function viewModal () {
+  document.getElementById('overlay').style.display = 'block'
+  document.getElementById('modal').style.display = 'block'
 }
 
-function closeModal() {
-  document.getElementById('overlay').style.display = 'none';
-  document.getElementById('modal').style.display = 'none';
+function closeModal () {
+  document.getElementById('overlay').style.display = 'none'
+  document.getElementById('modal').style.display = 'none'
 }
 
 const showModalAndAwaitConfirmation = () => {
-  return new Promise((resolve) => {
-    const modal = document.getElementById('modal');
-    const closeModalButton = document.getElementById('closeModal');
-    const form = document.getElementById('verification-form');
+  return new Promise(resolve => {
+    const modal = document.getElementById('modal')
+    const closeModalButton = document.getElementById('closeModal')
+    const form = document.getElementById('verification-form')
 
-    modal.style.display = 'flex';
+    modal.style.display = 'flex'
 
     closeModalButton.addEventListener('click', () => {
-      const code = Array.from(form.querySelectorAll('input')).map(input => input.value).join('');
-      modal.style.display = 'none';
-      resolve(code);
-    });
-  });
-};
+      const code = Array.from(form.querySelectorAll('input'))
+        .map(input => input.value)
+        .join('')
+      modal.style.display = 'none'
+      resolve(code)
+    })
+  })
+}
 
 // Evento botones ingreso y registro
-document.getElementById('login-tab').addEventListener('click', function() {
-  document.getElementById('login-form').style.display = 'block';
-  document.getElementById('register-form').style.display = 'none';
-  this.classList.add('active');
-  document.getElementById('register-tab').classList.remove('active');
-});
+document.getElementById('login-tab').addEventListener('click', function () {
+  document.getElementById('login-form').style.display = 'block'
+  document.getElementById('register-form').style.display = 'none'
+  this.classList.add('active')
+  document.getElementById('register-tab').classList.remove('active')
+})
 
-document.getElementById('register-tab').addEventListener('click', function() {
-  document.getElementById('login-form').style.display = 'none';
-  document.getElementById('register-form').style.display = 'block';
-  this.classList.add('active');
-  document.getElementById('login-tab').classList.remove('active');
-});
+document.getElementById('register-tab').addEventListener('click', function () {
+  document.getElementById('login-form').style.display = 'none'
+  document.getElementById('register-form').style.display = 'block'
+  this.classList.add('active')
+  document.getElementById('login-tab').classList.remove('active')
+})
 
-    // Mostrar el modal cuando se haga clic en "Recuperar contraseña"
-    document.getElementById('btn-recuperar').addEventListener('click', function() {
-        document.getElementById('overlayRecuperar').style.display = 'block';
-        document.getElementById('modalRecuperar').style.display = 'block';
-    });
+// Mostrar el modal cuando se haga clic en "Recuperar contraseña"
+document.getElementById('btn-recuperar').addEventListener('click', function () {
+  document.getElementById('overlayRecuperar').style.display = 'block'
+  document.getElementById('modalRecuperar').style.display = 'block'
+})
 
-    // Cerrar el modal al hacer clic en "Cancelar"
-    document.getElementById('cancelarRecuperar').addEventListener('click', function() {
-        document.getElementById('overlayRecuperar').style.display = 'none';
-        document.getElementById('modalRecuperar').style.display = 'none';
-    });
+// Cerrar el modal al hacer clic en "Cancelar"
+document
+  .getElementById('cancelarRecuperar')
+  .addEventListener('click', function () {
+    document.getElementById('overlayRecuperar').style.display = 'none'
+    document.getElementById('modalRecuperar').style.display = 'none'
+  })
 
-    // Validar y enviar el correo cuando se haga clic en "Enviar"
-    document.getElementById('enviarRecuperar').addEventListener('click', function() {
-      const email = document.getElementById('email-recuperar').value;
-  
-      // Validar que el correo no esté vacío
-      if (email === '') {
+// Validar y enviar el correo cuando se haga clic en "Enviar"
+document
+  .getElementById('enviarRecuperar')
+  .addEventListener('click', function () {
+    const email = document.getElementById('email-recuperar').value
+
+    // Validar que el correo no esté vacío
+    if (email === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, ingresa tu correo electrónico.'
+      })
+    } else {
+      // Llamada a la función para enviar el correo de recuperación de contraseña
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
           Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Por favor, ingresa tu correo electrónico.',
-          });
-      } else {
-          // Llamada a la función para enviar el correo de recuperación de contraseña
-          sendPasswordResetEmail(auth, email)
-          .then(() => {
-              Swal.fire({
-                  icon: 'success',
-                  title: 'Correo enviado',
-                  text: 'Se ha enviado un enlace de recuperación a tu correo electrónico.',
-              });
-  
-              // Cerrar el modal después de enviar
-              document.getElementById('overlayRecuperar').style.display = 'none';
-              document.getElementById('modalRecuperar').style.display = 'none';
+            icon: 'success',
+            title: 'Correo enviado',
+            text: 'Se ha enviado un enlace de recuperación a tu correo electrónico.'
           })
-          .catch((error) => {
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
-                  text: 'Ocurrió un error al enviar el correo. Inténtalo de nuevo.',
-              });
-          });
-      }
-  });
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    const dropdownButton = document.getElementById('dropdownButton');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const input = document.getElementById('celular');
 
-    dropdownButton.addEventListener('click', function() {
-        // Toggle the dropdown menu visibility
-        dropdownMenu.classList.toggle('show');
-    });
+          // Cerrar el modal después de enviar
+          document.getElementById('overlayRecuperar').style.display = 'none'
+          document.getElementById('modalRecuperar').style.display = 'none'
+        })
+        .catch(error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al enviar el correo. Inténtalo de nuevo.'
+          })
+        })
+    }
+  })
 
-    document.addEventListener('click', function(event) {
-        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.classList.remove('show');
-        }
-    });
+document.addEventListener('DOMContentLoaded', function () {
+  const dropdownButton = document.getElementById('dropdownButton')
+  const dropdownMenu = document.getElementById('dropdownMenu')
+  const input = document.getElementById('celular')
 
-    const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+  dropdownButton.addEventListener('click', function () {
+    // Toggle the dropdown menu visibility
+    dropdownMenu.classList.toggle('show')
+  })
 
-    dropdownItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const prefix = this.getAttribute('data-prefix');
-            input.value = prefix + ' '; // Add the prefix and a space
-            dropdownMenu.classList.remove('show');
-        });
-    });
-});
-document.getElementById('btn-inicio').addEventListener('click', function() {
-  window.location.href = 'index.html';
-});
-document.addEventListener('DOMContentLoaded', function() {
-  const checkbox = document.getElementById('aceptarPoliticas');
-  const submitButton = document.getElementById('openModal');
-  const politicasError = document.getElementById('politicasError');
+  document.addEventListener('click', function (event) {
+    if (
+      !dropdownButton.contains(event.target) &&
+      !dropdownMenu.contains(event.target)
+    ) {
+      dropdownMenu.classList.remove('show')
+    }
+  })
+
+  const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item')
+
+  dropdownItems.forEach(item => {
+    item.addEventListener('click', function () {
+      const prefix = this.getAttribute('data-prefix')
+      input.value = prefix + ' ' // Add the prefix and a space
+      dropdownMenu.classList.remove('show')
+    })
+  })
+})
+document.getElementById('btn-inicio').addEventListener('click', function () {
+  window.location.href = 'index.html'
+})
+document.addEventListener('DOMContentLoaded', function () {
+  const checkbox = document.getElementById('aceptarPoliticas')
+  const submitButton = document.getElementById('openModal')
+  const politicasError = document.getElementById('politicasError')
 
   // Inicialmente deshabilitar el botón
-  submitButton.disabled = true;
+  submitButton.disabled = true
 
   // Función para verificar el estado del checkbox
   const toggleSubmitButton = () => {
     if (checkbox.checked) {
-      submitButton.disabled = false;
-      politicasError.style.display = 'none';
+      submitButton.disabled = false
+      politicasError.style.display = 'none'
     } else {
-      submitButton.disabled = true;
-      politicasError.style.display = 'block';
+      submitButton.disabled = true
+      politicasError.style.display = 'block'
     }
-  };
+  }
 
   // Añadir evento de cambio al checkbox
-  checkbox.addEventListener('change', toggleSubmitButton);
-});
+  checkbox.addEventListener('change', toggleSubmitButton)
+})
 
-  
+document
+  .getElementById('dropdownButton')
+  .addEventListener('click', function (event) {
+    event.preventDefault() // Evita el envío del formulario
+    const dropdownMenu = document.getElementById('dropdownMenu')
+    dropdownMenu.style.display =
+      dropdownMenu.style.display === 'block' ? 'none' : 'block'
+  })
+
+// Maneja la selección del país
+document.querySelectorAll('#dropdownMenu .dropdown-item').forEach(item => {
+  item.addEventListener('click', function (event) {
+    event.preventDefault() // Evita el comportamiento predeterminado del enlace
+    const prefix = this.getAttribute('data-prefix')
+    document.getElementById('dropdownButton').textContent = this.textContent
+    document.getElementById('celular').value = prefix
+    document.getElementById('dropdownMenu').style.display = 'none'
+  })
+})
