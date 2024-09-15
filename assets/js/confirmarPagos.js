@@ -1,33 +1,43 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-const crypto = require('crypto');
+import { getCompras } from './firebase.js'
+// const correo = sessionStorage.getItem('correo')
+// const userId = sessionStorage.getItem(correo)
 
-admin.initializeApp();
+const userId = 'lLzQCmNotHNUehSKiJgMnfWo8zh2' // Cambia esto por el ID del usuario que quieras consultar
 
-exports.confirmacionPayU = functions.https.onRequest((req, res) => {
-    const { reference_sale, state_pol, value, currency, sign } = req.body;
+const mostrarCompras = async () => {
+  try {
+    // Obtener datos de compras
+    const { usuarioData, compras } = await getCompras(userId)
+    const ref = 'Ref001'
+    // Obtener el contenedor de los números de lotería
+    const loteriaContainer = document.getElementById('loteriaNumeros')
+    loteriaContainer.innerHTML = '' // Limpiar el contenido actual
+    debugger
+    // Procesar cada compra
+    compras.forEach(compra => {
+      debugger
+      // Dividir el número en dígitos individuales
+      if (ref == compra.reference_sale) {
+        var digitos = compra.numeroJugado.split('')
+      }
 
-    const apiKey = '4Vj8eK4rloUd272L48hsrarnUA';  // Tu API Key de PayU
-    const merchantId = '508029';
-    const amount = value;
-    const currencyType = currency;
-    const transactionState = state_pol;
+      // Crear un círculo para cada dígito
+      digitos.forEach(digito => {
+        const numeroDiv = document.createElement('div')
+        numeroDiv.classList.add('numero-loteria')
+        numeroDiv.textContent = digito // Asigna el dígito al div
+        loteriaContainer.appendChild(numeroDiv) // Añade el div al contenedor
+      })
+    })
 
-    const firmaString = `${apiKey}~${merchantId}~${reference_sale}~${amount}~${currencyType}~${transactionState}`;
-    const expectedSignature = crypto.createHash('md5').update(firmaString).digest('hex');
+    // Mostrar la serie si existe
+    document.getElementById('loteriaSerie').textContent = `Serie: ${
+      compras[0]?.numeroSerie || 'N/A'
+    }`
+  } catch (error) {
+    console.error('Error al obtener los datos:', error)
+  }
+}
 
-    if (sign !== expectedSignature) {
-        return res.status(400).send('Firma no válida');
-    }
-
-    const transactionRef = admin.firestore().collection('transacciones').doc(reference_sale);
-    
-    transactionRef.update({
-        estado: transactionState === '4' ? 'Aprobado' : 'Rechazado',
-        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-    }).then(() => {
-        return res.status(200).send({ estado: transactionState === '4' ? 'APROBADO' : 'RECHAZADO' });
-    }).catch(error => {
-        return res.status(500).send('Error interno');
-    });
-});
+// Llama a la función para mostrar compras cuando el documento esté listo
+document.addEventListener('DOMContentLoaded', mostrarCompras)

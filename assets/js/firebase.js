@@ -2,24 +2,24 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, setDoc} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js';
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyA_UzDCpXkXKvzFAfc_ojetAiSeruaB3IA",
-//   authDomain: "loteria-59d43.firebaseapp.com",
-//   projectId: "loteria-59d43",
-//   storageBucket: "loteria-59d43.appspot.com",
-//   messagingSenderId: "793000466934",
-//   appId: "1:793000466934:web:2df487d555ad089587cfd7"
-// };
-
 const firebaseConfig = {
-  apiKey: "AIzaSyDh1rTFzP_TaPZYG1N_vsln10XqGan-fvw",
-  authDomain: "db-loteria.firebaseapp.com",
-  projectId: "db-loteria",
-  storageBucket: "db-loteria.appspot.com",
-  messagingSenderId: "481276152488",
-  appId: "1:481276152488:web:88543f55f23db803a7d09d",
-  measurementId: "G-3TRGKZPS66"
+  apiKey: "AIzaSyA_UzDCpXkXKvzFAfc_ojetAiSeruaB3IA",
+  authDomain: "loteria-59d43.firebaseapp.com",
+  projectId: "loteria-59d43",
+  storageBucket: "loteria-59d43.appspot.com",
+  messagingSenderId: "793000466934",
+  appId: "1:793000466934:web:2df487d555ad089587cfd7"
 };
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDh1rTFzP_TaPZYG1N_vsln10XqGan-fvw",
+//   authDomain: "db-loteria.firebaseapp.com",
+//   projectId: "db-loteria",
+//   storageBucket: "db-loteria.appspot.com",
+//   messagingSenderId: "481276152488",
+//   appId: "1:481276152488:web:88543f55f23db803a7d09d",
+//   measurementId: "G-3TRGKZPS66"
+// };
 
 // Inicializar instancia de Firebase
 const app = initializeApp(firebaseConfig);
@@ -83,6 +83,51 @@ export const saveCompra = ( async (uid, ref, descripcion, entidad, estadoTransac
   }
 })
 
+export const getCompras = async (id) => {
+  const usuarioDoc = await getDoc(doc(db, 'users', id));
+
+  if (usuarioDoc.exists()) {
+    const usuarioData = usuarioDoc.data();
+    const comprasRef = collection(db, `users/${id}/compras`);
+    const comprasSnapshot = await getDocs(comprasRef);
+
+    const compras = comprasSnapshot.docs.map(doc => doc.data());
+
+    return {
+      usuarioData,
+      compras
+    };
+  } else {
+    throw new Error('Usuario no encontrado');
+  }
+};
+
+// Obtener compras de un usuario filtradas por currency
+export const getComprasPorCurrency = async (userId, currency) => {
+  const usuarioDoc = await getDoc(doc(db, 'users', userId));
+
+  if (usuarioDoc.exists()) {
+    // Acceder a los datos del usuario
+    const usuarioData = usuarioDoc.data();
+
+    // Obtener las compras del usuario
+    const comprasRef = collection(db, `users/${userId}/compras`);
+    const comprasSnapshot = await getDocs(comprasRef);
+
+    // Filtrar las compras según la currency
+    const comprasFiltradas = comprasSnapshot.docs
+      .map(doc => doc.data())
+      .filter(compra => compra.currency === currency);
+
+    return {
+      usuarioData,
+      compras: comprasFiltradas
+    };
+  } else {
+    throw new Error('Usuario no encontrado');
+  }
+};
+
 //obtener un usuario de firestore
 export const getUsuario = (id) => getDoc(doc(db, 'users', id))
 
@@ -93,7 +138,7 @@ export const getUsuarios = () => getDocs(collection(db, 'users'))
 export const updateUsuario = (id, objeto) => updateDoc(doc(db, 'users', id), objeto)
 
 //obtener todas las compras de un usuario
-export const getCompras = (id) => getDocs(collection(db, "users/" + id, "/compras"))
+// export const getCompras = (id) => getDocs(collection(db, "users/" + id, "/compras"))
 
 //obtener una compra del usuario
 export const getCompra = (id, ref) => getDoc(doc(db, 'users/', id + '/compras/' + ref))

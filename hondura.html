@@ -35,6 +35,15 @@
     <link href="assets/css/owl.theme.default.min.css" rel="stylesheet" type="text/css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+    <script type="module" src="./assets/js/firebase.js"></script>
+    <script type="module">
+        import { checkAuthAndRedirect } from './assets/js/firebase.js'; // Ajusta la ruta según la ubicación de tu archivo firebase.js
+        
+        document.addEventListener("DOMContentLoaded", () => {
+          // Verifica el estado de autenticación y redirige si no está autenticado
+          checkAuthAndRedirect('/index.html');
+        });
+      </script>
 </head>
 
 <body>
@@ -75,6 +84,9 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="dropdown-item nav-link" href="rpDominicana.html">Republica Dominicana</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="costaRica.html">Costa Rica</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="dropdown-item nav-link" href="argentina.html">Argentina</a>
@@ -141,7 +153,7 @@
                     <div class="portfolio_box">
                         <p>La Diaria honduras</p>
                         <div class="btn_wrapper">
-                            <a onclick="procesarPago(4,'H','diaria')" class="text-decoration-none">Jugar Loteria<i class="fa-solid fa-angle-right"></i></a>
+                            <a onclick="procesarPago(1,'H','diaria')" class="text-decoration-none">Jugar La Diaria<i class="fa-solid fa-angle-right"></i></a>
                         </div>
                         <br>
                     </div>
@@ -156,7 +168,7 @@
                     <div class="portfolio_box">
                         <p>Premia Dos honduras</p>
                         <div class="btn_wrapper">
-                            <a onclick="procesarPago(4,'H','premia')" class="text-decoration-none">Jugar Loteria<i class="fa-solid fa-angle-right"></i></a>
+                            <a onclick="procesarPago(2,'H','premia')" class="text-decoration-none">Jugar Premia 2<i class="fa-solid fa-angle-right"></i></a>
                         </div>
                         <br>
                     </div>
@@ -171,13 +183,21 @@
                     <div class="portfolio_box">
                         <p> Pega Tres honduras</p>
                         <div class="btn_wrapper">
-                            <a onclick="procesarPago(6,'H','pega')" class="text-decoration-none">Jugar Loteria<i class="fa-solid fa-angle-right"></i></a>
+                            <a onclick="procesarPago(3,'H','pega')" class="text-decoration-none">Jugar Pega 3<i class="fa-solid fa-angle-right"></i></a>
                         </div>
                         <br>
                     </div>
                     <div class="portfolio_image_box">
                         <span>Pega Tres honduras</span>
                     </div>
+                </div>
+            </div>
+            <div class="containerLoteriaAll">
+                <div class="contenidoLoteria">
+                        <div class="nombre-loteria">
+                            <h3>Loteria Dorado</h3>
+                            <p></p>
+                        <div class="loteria-container" id="loteriaContainer"></div>
                 </div>
             </div>
         </div>

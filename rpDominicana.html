@@ -35,6 +35,15 @@
     <link href="assets/css/owl.theme.default.min.css" rel="stylesheet" type="text/css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+    <script type="module" src="./assets/js/firebase.js"></script>
+    <script type="module">
+        import { checkAuthAndRedirect } from './assets/js/firebase.js'; // Ajusta la ruta según la ubicación de tu archivo firebase.js
+        
+        document.addEventListener("DOMContentLoaded", () => {
+          // Verifica el estado de autenticación y redirige si no está autenticado
+          checkAuthAndRedirect('/index.html');
+        });
+      </script>
 </head>
 
 <body>
@@ -75,6 +84,9 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="dropdown-item nav-link" href="rpDominicana.html">Republica Dominicana</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item nav-link" href="costaRica.html">Costa Rica</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="dropdown-item nav-link" href="argentina.html">Argentina</a>
@@ -138,31 +150,55 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="portfolio_image">
                     <figure class="mb-0"><img src="./assets/images/sorteo-quiniela-pale.gif" alt="" class="img-fluid"></figure>
-                    <div class="portfolio_box">
-                        <p>Lotería Quiniela Pale</p>
+                    <div class="portfolio_box2">
+                        <p>Lotería Quiniela Palé</p>
                         <div class="btn_wrapper">
-                            <a onclick="procesarPago(6,'R','pale')" class="text-decoration-none">Jugar Loteria<i class="fa-solid fa-angle-right"></i></a>
+                            <a onclick="procesarPago(1,'R','pale')" class="text-decoration-none">Jugar Quiniela Leidsa<i class="fa-solid fa-angle-right"></i></a>
                         </div>
                         <br>
+                        <div class="btn_wrapper">
+                            <a onclick="procesarPago(2,'R','pale')" class="text-decoration-none">Jugar Quiniela Palé<i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                        <br>
+                        <div class="btn_wrapper">
+                            <a onclick="procesarPago(3,'R','pale')" class="text-decoration-none">Jugar Tripleta de Quiniela Leidsa<i class="fa-solid fa-angle-right"></i></a>
+                        </div>
                     </div>
                     <div class="portfolio_image_box">
-                        <span>Lotería Quiniela Pale</span>
+                        <span>Lotería Quiniela Palé</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="portfolio_image">
                     <figure class="mb-0"><img src="./assets/images/sorteo-quiniela-real.gif" alt="" class="img-fluid"></figure>
-                    <div class="portfolio_box">
+                    <div class="portfolio_box2">
                         <p> Loteria Quiniela Real</p>
                         <div class="btn_wrapper">
-                            <a onclick="procesarPago(6,'R','real')" class="text-decoration-none">Jugar Loteria<i class="fa-solid fa-angle-right"></i></a>
+                            <a onclick="procesarPago(1,'R','real')" class="text-decoration-none">Jugar Quiniela Real<i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                        <br>
+                        <div class="btn_wrapper">
+                            <a onclick="procesarPago(2,'R','real')" class="text-decoration-none">Jugar Palé Real<i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                        <br>
+                        <div class="btn_wrapper">
+                            <a onclick="procesarPago(3,'R','real')" class="text-decoration-none">Jugar Tripleta Real<i class="fa-solid fa-angle-right"></i></a>
                         </div>
                         <br>
                     </div>
                     <div class="portfolio_image_box">
                         <span>Loteria Quiniela Real</span>
                     </div>
+                </div>
+            </div>
+            <div class="containerLoteriaAll" style="margin-top: 100px;">
+                <div class="contenidoLoteria">
+                        <div class="nombre-loteria">
+                            <h3>Loteria Dorado</h3>
+                            <p></p>
+                        </div>
+                        <div class="loteria-container" id="loteriaContainer"></div>
                 </div>
             </div>
            
