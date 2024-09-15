@@ -117,6 +117,7 @@ function cerrarSesion() {
         const firma = md5Hex(firmaString);
         document.getElementById('payu-signature').value = firma;
 
+        actualizarResponseUrl(numero);
         console.log('Firma generada:', firma); 
         console.log('Reference Code:', referenceCode);
         console.log('Monto:', monto);
@@ -124,7 +125,11 @@ function cerrarSesion() {
 
         document.getElementById('formulario-payu').submit();
     }
-
+    function actualizarResponseUrl(cantidad) {
+        const baseUrl = "http://localhost:3001/transaction-summary?customId=";
+        const numerosAleatorios = generarNumerosAleatorios(cantidad);
+        document.getElementById("payu-responseUrl").value = baseUrl + numerosAleatorios;
+    }
     // Cerrar modal cuando el usuario haga clic fuera de la ventana modal
     window.onclick = function(event) {
         const modal = document.getElementById('modalPago');

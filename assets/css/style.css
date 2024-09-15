@@ -2033,7 +2033,6 @@ button.boton-pagar:hover {
     cursor: pointer;
 }
 .loteria-container {
-    display: flex;
     align-items: center;
     background-color: #6c4a7d;
     padding: 10px;

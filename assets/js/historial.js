@@ -33,46 +33,48 @@ const mostrarCompras = async () => {
     for (const [description, compras] of Object.entries(loterias)) {
       // Crear un contenedor para esta lotería
       const loteriaDiv = document.createElement('div');
-      loteriaDiv.classList.add('loteria-seccion');
+      loteriaDiv.classList.add('loteria-seccion', 'align-items-center', 'justify-content-between');
+      loteriaDiv.style.marginBottom = '20px'; // Espacio entre loterías
       
       // Crear y añadir el nombre de la lotería
-      const nombreDiv = document.createElement('h3');
+      const nombreDiv = document.createElement('h4');
       nombreDiv.textContent = `Lotería: ${description}`;
       loteriaDiv.appendChild(nombreDiv);
 
-      // Crear un contenedor para los números de esta lotería
-      const numerosContainer = document.createElement('div');
-      numerosContainer.classList.add('numeros-container');
+      // Crear un contenedor para los números y la serie
+      const numerosSerieContainer = document.createElement('div');
+      numerosSerieContainer.classList.add('numeros-serie-container', 'd-flex', 'align-items-center');
 
       // Procesar cada compra de esta lotería
       compras.forEach(compra => {
-        if (compra.numero) {
-          const digitos = compra.numero.split(''); // Dividir el número en dígitos individuales
+        if (compra.numeroJugado) {
+          const digitos = compra.numeroJugado.split(''); // Dividir el número en dígitos individuales
 
+          // Añadir cada dígito como un div circular
           digitos.forEach(digito => {
             const numeroDiv = document.createElement('div');
             numeroDiv.classList.add('numero-loteria');
             numeroDiv.textContent = digito; // Asigna el dígito al div
-            numerosContainer.appendChild(numeroDiv);
+            numerosSerieContainer.appendChild(numeroDiv);
           });
+          debugger
+          // Añadir la serie si existe
+          if (compra.numeroSerie) {
+            const serieDiv = document.createElement('div');
+            serieDiv.classList.add('serie-loteria');
+            serieDiv.textContent = `SERIE ${compra.numeroSerie}`;
+            numerosSerieContainer.appendChild(serieDiv);
+          }
         } else {
           console.warn('Número de compra no definido:', compra);
         }
       });
 
-      // Añadir el contenedor de números al contenedor de la lotería
-      loteriaDiv.appendChild(numerosContainer);
+      // Añadir el contenedor de números y serie al contenedor de la lotería
+      loteriaDiv.appendChild(numerosSerieContainer);
 
       // Añadir el contenedor de la lotería al contenedor principal
       loteriaContainer.appendChild(loteriaDiv);
-    }
-
-    // Mostrar la serie si existe
-    const loteriaSerieElement = document.getElementById('loteriaSerie');
-    if (loteriaSerieElement) {
-      loteriaSerieElement.textContent = `Serie: ${compras[0]?.serie || 'N/A'}`;
-    } else {
-      console.warn('No se encontró el elemento de la serie de lotería. No se puede actualizar el texto.');
     }
   } catch (error) {
     console.error('Error al obtener los datos:', error);
